@@ -37,3 +37,41 @@ improved (e.g., the students used unnecessary if statements)
 #   data in the 3rd column on the y axis, data in the 1st column on the x axis). 
 # - Add an xlabel as "Time [s]" and a ylabel as "Speed [m/s]"
 #
+
+import matplotlib.pyplot as plt  
+import os
+# path = 'C:\\Users\\User\\Documents\\Computing1\\MOCK\\Plot question\\Data\\data.txt'  This was specifically for my laptop
+
+
+x = os.getcwd()
+y = x + "\Plot question\Data\data.txt" 
+# print(y)
+path = y
+
+file = open(path, "r")
+a = file.read()
+datapoints = a.split() # I will convert the file into a list containing all the elements
+# print(datapoints)
+list = [float(data) for data in datapoints] # Then I will create a list of all the floats ready for some maths!
+# print(list)
+
+column1 = list[0::7]
+column2 = list[1::7]
+column3 = list[2::7]
+column4 = list[3::7]
+column5 = list[4::7]
+column6 = list[5::7]
+column7 = list[6::7]
+averages = []
+
+plt.plot(column1, column6) 
+plt.plot(column1, column3)
+
+plt.xlabel("Time [s]")
+plt.ylabel("Speed [m/s]") 
+
+plt.show()
+
+
+file.close()
+

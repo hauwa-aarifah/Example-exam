@@ -34,6 +34,32 @@ or the program is largely incomplete.
 # input dictionary whose values are all whole numbers (values, not keys).
 # # weight = 5 
 
-def value_greatest_even():
-    return 
+def value_greatest_even(dictionary):
+    dictionaryvalues = [x for x in dictionary.values()]
+    print(f"checking {dictionaryvalues} for the largest even number...")
+    largestvalue = 0
+    for value in dictionaryvalues:
+        while type(value) != int:
+            return print("ERROR: One of the values is not an integer variable")
+             
+        else:
+            for x in dictionaryvalues:
+                if (x > largestvalue) and (x%2 == 0):
+                    largestvalue = x
 
+    if largestvalue>0:
+        print(largestvalue)
+        return largestvalue
+    else:
+        print("ERROR: No even numbers found")
+        return None
+        
+             
+
+dictionary1 = {"a":"Maz", "b":19, "c": 6, "d":12}
+dictionary2 = {"x":9, "y":1, "z":3}
+dictionary3 = {"k":2, "l":1, "m":16}
+
+value_greatest_even(dictionary1)
+value_greatest_even(dictionary2)
+value_greatest_even(dictionary3)

@@ -57,7 +57,7 @@ or the program is largely incomplete.
 
 '''
 
-
+import random 
 
 # Create a class called Student with one instance attribute called "courses"
 # that is created in the constructor.
@@ -70,19 +70,34 @@ or the program is largely incomplete.
 #                   2. the second item is 'grade' (expressed with a float from 1 to 100)
 #                   (e.g. {'computing': {'year': 1, 'grade': 87.5})
 
-
-
+class student:
+    def __init__(self, courses = {}):
+        self.courses = {}
+    
 
 # Create a method called add_course(). It should:
 #   - have 3 parameters: 'course_name', 'year' and grade
 #   - 'grade' has a default value of "None"
 #   - it should change the grade of the corresponding course in the "courses" attribute
 #        - if the course exists already ask the user (via terminal) if they want to change the existing course.
-#           if the user says "yes" or "y", change the grade and the year accordingly. If the grade was not specified, ask the user (via terminal) for the grade
+#           if the user says "yes" or "y", change the grade and the year accordingly. 
+#           If the grade was not specified, ask the user (via terminal) for the grade. 
 #           if the user writes "no" or "n", ignore it. 
 #           keep asking the question until the user inputs either yes/y or no/n
 #        - if the course does not already exist in the dictionary, add a new entry
 
+    def add_course(self, course_name = None, year = None, grade = None):
+        if course_name in self.courses:
+            reply = input("This course already exists, would you like to alter it?: ")
+            if reply not in ["yes", "y", "no", "n"]:
+                while reply not in ["yes", "y", "no", "n"]:
+                    reply = input("This course already exists, would you like to alter it?: ")
+            if reply in ["yes", "y"]:
+                self.courses[course_name] = {"Year": int(year), "Grade" : float(grade)}
+
+        else:
+            self.courses[course_name] = {"Year": int(year), "Grade" : float(grade)}
+        # print(self.courses)
 
 # Create a method called change_grade(). It should:
 #   - have 2 parameters: 'course', grade
@@ -93,7 +108,18 @@ or the program is largely incomplete.
 #          if the user writes "no" or "n", ignore it. 
 #           keep asking the question until the user inputs either yes/y or no/n
 
-
+    def change_grade(self, course_name, year, grade):
+        if course_name not in self.courses:
+            reply = input("This course does not exist, would you like to add it?: ")
+            if reply not in ["yes", "y", "no", "n"]:
+                while reply not in ["yes", "y", "no", "n"]:
+                    reply = input("This course does not exist, would you like to add it?: ")
+            if reply in ["yes", "y"]:
+                year = int(input("What year was this course taken in?: "))
+                self.courses[course_name] = {"Year": int(year), "Grade" : float(grade)}
+        else:
+            self.courses[course_name] = {'Year' : int(year), 'Grade': float(grade)}
+        print(self.courses)
 
 # Create a method called calculate_mean(). It should: 
 #   - have one parameter, either a list of strings or a year (from 1 to 4):
@@ -103,13 +129,85 @@ or the program is largely incomplete.
 #        if any of the courses in the string are not present in the attribute "courses", the method will ignore them and just return
 #        the mean for the ones that are present. If none of the courses are present the method will return "None" and print "The student "
 
+    def calculate_mean(self, courses):
+        if type(courses) == int:
+            if int in [1,2,3,4]:
+                total = 0
+                count = 0
+                for course in self.courses:
+                    if course["Year"] == courses:
+                        count += 1
+                        total += course["Grade"]
+                if total != 0:
+                    return total/count
+                else:
+                    print(f"No courses added for year {courses}")
+                    return None
+            else:
+                print("You did not enter a year (from 1 to 4)")
+
+        elif type(courses) == list:
+            total = 0
+            count = 0
+            for course in self.courses:
+                if course in courses:
+                    count += 1
+                    total += course["Grade"]
+            if total != 0:
+                return total/count
+            else:
+                print(f"Student did not participate in any of the courses listed: {courses}")
+                return None
+        else:
+            print("You did not enter a list of strings or a year (from 1 to 4)")
 
 
 # Create 10 instances of the class Student and to each one of them assign a course "computing I" and a
 # course "Mathematics". 
 #   - Both of them have year 1 as the year and a random grade between 1 and 100.
+
+
+classroom = []
+for i in range(10):
+    classroom.append(student())
+    classroom[i].add_course("Mathematics", 1, random.randint(0, 100))
+    classroom[i].add_course("Computing I", 1, random.randint(0, 100))
+
+# print(classroom)
+
+
 #   - Write a function called "calculate_overall_mean()" that takes as input any list of students and an optional argument "course" (default None).
 #       
 #       -If course is not specified the function will return a dictionary with, as keys, all the courses that the students have
 #        (mathematics and computing in this example, but there could be more) and as value the mean across the list students.
 #       - If course is specified, the function will return the mean for that specific course across the list of students.
+
+
+def calculate_avaergae_mean(list1, course = None):
+    while type(list1) != list:
+         print("Please enter a list input")
+    if course == None:
+        courses2check = list(list1[0].courses.keys())
+        # print(courses2check)
+        last_dict = {}
+        for x in courses2check:
+            total = 0
+            count = 0
+            for i in list1:
+                count += 1
+                total += i.courses[x]["Grade"]
+            last_dict[x] = total/count
+        return last_dict
+    else:
+        total = 0
+        count = 0
+        for i in list1:
+            count += 1
+            total += i.courses[course]["Grade"]
+        return total/count
+
+print(calculate_avaergae_mean(classroom))
+print(calculate_avaergae_mean(classroom, "Mathematics"))
+emma = student()
+# emma.add_course("maths", 4, 5)
+emma.change_grade("maths", 3, 5)

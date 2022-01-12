@@ -38,10 +38,13 @@ or the program is largely incomplete.
 # should default to 'London'. 
 # weight = 3
 
-def greeting():
-    return 
+def greeting(name, location = 'London'):
 
+    return print(f"Hello {name}, how is {location}?")
+     
 
+greeting("Max")
+greeting("Emily", 'Spain')
 
 
 

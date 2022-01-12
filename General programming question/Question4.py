@@ -40,6 +40,55 @@ or the program is largely incomplete.
 # Example2: input = "sdfhdsl4??sfasdfga?6sdjkfhbdsjhfkb" output = True (the two numbers sum to 10)
 # weight = 8
 
-def question_mark():
+def question_mark(string):
+    alphabets = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    characters = [char for char in string]
+    counter = 0
+    for i in characters:
+        if i == "?":
+            counter = counter + 1
+
+    if counter == 3:
+        # print("yay 3 queation marks")
+        list1 = string.split("?")
+        # print(list1)
+        # print(len(list1))
+        numberstocheck = []
+        numbers1 = []
+        numbers2 = []
+        
+        for char in list1[0]:
+            if char not in alphabets: 
+                x = int(char)
+                numbers1.append(x)
+        numberstocheck.append(numbers1[-1])
+
+        for char in list1[-1]:
+            if char not in alphabets:
+                y = int(char)
+                numbers2.append(y)
+        numberstocheck.append(numbers2[0])
+
+        if len(numberstocheck) >= 2:
+            x = sum(numberstocheck)
+
+            if x == 10:
+                print("True (the two numbers sum to 10)")
+            else:
+                print("False (the two numbers do not sum to 10)")
+        else: 
+            print("False (there aren't any two numbers to sum)")
+
+    
+    else:
+        print("False (you did not input exactly 3 question marks)")
+
+    
     return 
 
+question_mark("sdfhdsl4??sfasdfga?1sdjkfhbdsjhfkb")
+
+question_mark("sdfhdsl4?8vb9?sfasdfga?1sdjkfhbdsjhfkb")
+
+question_mark("sdfhds24??sfasdfga?6sdjkfhbdsjhfkb")
+question_mark("sdfhds24??sfasdfga?6sd7jkfhbdsjhfkb")

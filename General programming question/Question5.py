@@ -34,10 +34,27 @@ or the program is largely incomplete.
 # whose keys are all strings.
 # weight = 2
 
-def longest_key():
-    return 
+def longest_key(dictionary):
+    keys = []
+    longestkeyvalue = 0
+    for key in dictionary:
+        while type(key) != str:
+            return print("One of the keys is not a string variable")
+             
+        else:
+            keys.append(key)
+    for key in keys:
+        if len(key) > longestkeyvalue:
+             longestkeyvalue = len(key)
+    for key in keys:
+        if len(key) == longestkeyvalue:
+            print(key)
+            return key
 
 
-
+dictionary1 = {"name": "Maz", "age": "19", "height": 6, 0:"x"}
+dictionary2 = {"name": "Maz", "age": "19", "height": 6}
+longest_key(dictionary1)
+longest_key(dictionary2)
 
 
